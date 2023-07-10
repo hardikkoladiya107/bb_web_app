@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../generated/assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/responsive.dart';
+import '../../utils/routes.dart';
 import '../../widgets/bb_button.dart';
 import '../../widgets/bb_textfield.dart';
 import 'login_controller.dart';
@@ -146,7 +147,9 @@ class LoginScreen extends StatelessWidget {
       child: AppButton(
         buttonColor: buttonColor,
         text: "LOGIN",
-        onPress: () {},
+        onPress: () {
+          Get.toNamed(Routes.home);
+        },
         borderValue: 0,
       ),
     ).paddingOnly(top: 40);

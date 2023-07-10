@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 extension extOnWidget on Widget {
   Widget get center {
@@ -64,5 +65,23 @@ extension extOnString on String? {
       status = true;
     }
     return status;
+  }
+
+  Widget text({
+    Color? textColor,
+    double? fontSize,
+    FontWeight? weight,
+    FontStyle? style
+  }) {
+    return Text(
+      this ?? "",
+      style: TextStyle(
+        color: textColor,
+        fontSize: fontSize,
+        fontStyle: style,
+        fontWeight: weight,
+        fontFamily: GoogleFonts.montserrat().fontFamily,
+      ),
+    );
   }
 }
