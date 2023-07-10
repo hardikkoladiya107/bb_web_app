@@ -1,5 +1,7 @@
+import 'package:bb_web_app/widgets/extensions/cmn_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../utils/app_colors.dart';
 import '../bb_text.dart';
 
@@ -33,17 +35,41 @@ SnackbarController showAppSnackBar(
 }
 
 extension extForSnack on String? {
-  errorSnack() {
-    showAppSnackBar(
-      this ?? '',
-      type: SnackType.error,
-    );
+  errorSnack(BuildContext context) {
+    try {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          elevation: 6.0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: failed,
+          content: text(
+            textColor: Colors.white,
+            fontSize: 16,
+            weight: FontWeight.w500,
+          ),
+        ),
+      );
+    } catch (e) {
+      e.debugPrint;
+    }
   }
 
-  successSnack() {
-    showAppSnackBar(
-      this ?? '',
-      type: SnackType.success,
-    );
+  successSnack(BuildContext context) {
+    try {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          elevation: 6.0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.green,
+          content: text(
+            textColor: Colors.white,
+            fontSize: 16,
+            weight: FontWeight.w500,
+          ),
+        ),
+      );
+    } catch (e) {
+      e.debugPrint;
+    }
   }
 }

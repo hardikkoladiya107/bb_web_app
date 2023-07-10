@@ -16,7 +16,7 @@ extension extOnWidget on Widget {
   }
 
   Widget onClick(GestureTapCallback ontap) {
-    return InkWell(
+    return GestureDetector(
       onTap: ontap,
       child: this,
     );
@@ -67,12 +67,11 @@ extension extOnString on String? {
     return status;
   }
 
-  Widget text({
-    Color? textColor,
-    double? fontSize,
-    FontWeight? weight,
-    FontStyle? style
-  }) {
+  Widget text(
+      {Color? textColor,
+      double? fontSize,
+      FontWeight? weight,
+      FontStyle? style}) {
     return Text(
       this ?? "",
       style: TextStyle(

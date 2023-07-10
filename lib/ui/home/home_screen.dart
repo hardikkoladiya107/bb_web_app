@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils/app_colors.dart';
+import '../../utils/app_constant.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/responsive.dart';
+import '../../utils/routes.dart';
 import '../category/category_screen.dart';
 import '../feed/feed_screen.dart';
 import '../menu/menu_screen.dart';
 import 'home_controller.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class MainScreen extends StatelessWidget {
+  MainScreen({Key? key}) : super(key: key);
 
   var controller = Get.put(HomeController());
 
@@ -61,17 +64,28 @@ class HomeScreen extends StatelessWidget {
                     controller.update();
                   }),
                   sideBarItem(lable: "Menu", isSelected: ctrl.drawerCount == 2)
-                      .onClick(() {
-                    ctrl.drawerCount = 2;
-                    controller.update();
-                  }),
+                      .onClick(
+                    () {
+                      ctrl.drawerCount = 2;
+                      controller.update();
+                    },
+                  ),
+                  sideBarItem(
+                          lable: "Log-Out", isSelected: ctrl.drawerCount == 3)
+                      .onClick(
+                    () async {
+                      //await box.erase();
+                      Get.offAllNamed(Routes.login);
+                      //controller.update();
+                    },
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: IndexedStack(
                 index: ctrl.drawerCount,
-                children: const [
+                children:   [
                   FeedScreen(),
                   CategoryScreen(),
                   MenuScreen(),

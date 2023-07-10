@@ -5,7 +5,7 @@ import '../ui/login/login_screen.dart';
 
 class Routes {
   static const String login = "/login";
-  static const String home = "/home";
+  static const String mainScreen = "/home";
 
   static List<GetPage> pages = [
     GetPage(
@@ -14,8 +14,8 @@ class Routes {
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: Routes.home,
-      page: () => HomeScreen(),
+      name: Routes.mainScreen,
+      page: () => MainScreen(),
       transition: Transition.fadeIn,
     ),
   ];

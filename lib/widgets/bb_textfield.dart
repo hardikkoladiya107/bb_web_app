@@ -1,4 +1,6 @@
+import 'package:bb_web_app/widgets/extensions/cmn_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BBTextField extends StatefulWidget {
@@ -26,9 +28,14 @@ class BBTextField extends StatefulWidget {
   double? fontSize;
   Color? textColor;
 
+  double? width;
+  double? height;
+
   BBTextField({
     super.key,
     this.controller,
+    this.width,
+    this.height,
     this.align = TextAlign.start,
     this.onchange,
     this.maxLength,
@@ -62,76 +69,95 @@ class _BBTextFieldState extends State<BBTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      textInputAction: widget.textInputAction,
-      obscureText: widget.obscureText,
-      focusNode: widget.focusNode,
-      textAlign: widget.align!,
-      enabled: widget.enabled,
-      onChanged: (text) {
-        if (widget.onchange != null) {
-          widget.onchange!(text);
-        }
-      },
-      maxLength: widget.maxLength,
-      cursorColor: Colors.grey,
-      readOnly: widget.readOnly,
-      showCursor: widget.showCurson,
-      onEditingComplete: widget.onComplete,
-      maxLines: widget.maxLines,
-      keyboardType: widget.inputType,
-      onTap: widget.ontap,
-      style: TextStyle(
-        fontSize: widget.fontSize ?? 16,
-        fontWeight: FontWeight.normal,
-        color: widget.textColor,
-        fontFamily: GoogleFonts.montserrat().fontFamily,
-      ),
-      controller: widget.controller,
-      decoration: InputDecoration(
-        errorText: widget.error,
-        counterText: "",
-        errorStyle: TextStyle(
-          color: Colors.red,
-          fontFamily: GoogleFonts.montserrat().fontFamily,
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-        ),
-        hintText: widget.hint,
-        hintStyle: TextStyle(
-          color: widget.hintColor ?? Colors.black,
-          fontFamily: GoogleFonts.montserrat().fontFamily,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        widget.error.text(
           fontSize: 14,
-          fontWeight: FontWeight.normal,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            widget.radius ?? 0.0,
+          textColor: Colors.red,
+        ).paddingOnly(bottom: 5),
+        Container(
+          height: widget.height,
+          width: widget.width,
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.circular(5)),
+          child: TextField(
+            textInputAction: widget.textInputAction,
+            obscureText: widget.obscureText,
+            focusNode: widget.focusNode,
+            textAlign: widget.align!,
+            enabled: widget.enabled,
+            onChanged: (text) {
+              if (widget.onchange != null) {
+                widget.onchange!(text);
+              }
+            },
+            maxLength: widget.maxLength,
+            cursorColor: Colors.grey,
+            readOnly: widget.readOnly,
+            showCursor: widget.showCurson,
+            onEditingComplete: widget.onComplete,
+            maxLines: widget.maxLines,
+            keyboardType: widget.inputType,
+            onTap: widget.ontap,
+            style: TextStyle(
+              fontSize: widget.fontSize ?? 16,
+              fontWeight: FontWeight.normal,
+              color: widget.textColor,
+              fontFamily: GoogleFonts.montserrat().fontFamily,
+            ),
+            controller: widget.controller,
+            decoration: InputDecoration(
+              counterText: "",
+              errorStyle: TextStyle(
+                color: Colors.red,
+                fontFamily: GoogleFonts.montserrat().fontFamily,
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+              ),
+              hintText: widget.hint,
+              hintStyle: TextStyle(
+                color: widget.hintColor ?? Colors.black,
+                fontFamily: GoogleFonts.montserrat().fontFamily,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  widget.radius ?? 0.0,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  widget.radius ?? 0.0,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  widget.radius ?? 0.0,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              fillColor: widget.fillColor ?? Colors.transparent,
+              //filled: true,
+              isDense: true,
+              // contentPadding:
+              //     const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: widget.sufixIcon,
+              prefixIconConstraints:
+                  const BoxConstraints(minWidth: 0, minHeight: 0),
+              suffixIconConstraints:
+                  const BoxConstraints(minWidth: 0, minHeight: 0),
+            ),
           ),
-          borderSide: BorderSide.none,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            widget.radius ?? 0.0,
-          ),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            widget.radius ?? 0.0,
-          ),
-          borderSide: BorderSide.none,
-        ),
-        fillColor: widget.fillColor ?? Colors.transparent,
-        filled: true,
-        isDense: true,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.sufixIcon,
-        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-        suffixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-      ),
+      ],
     );
   }
 }

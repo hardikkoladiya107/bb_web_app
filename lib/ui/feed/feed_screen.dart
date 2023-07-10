@@ -5,6 +5,8 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.blue,);
+    return const Scaffold(
+      backgroundColor: Colors.blue,
+    );
   }
 }

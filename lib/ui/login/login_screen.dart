@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../generated/assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/responsive.dart';
-import '../../utils/routes.dart';
 import '../../widgets/bb_button.dart';
+import '../../widgets/bb_loading.dart';
 import '../../widgets/bb_textfield.dart';
 import 'login_controller.dart';
 
@@ -21,27 +21,36 @@ class LoginScreen extends StatelessWidget {
       onWillPop: () async {
         return true;
       },
-      child: Scaffold(
-        backgroundColor: bgColor,
-        body: Responsive(
-          mobile: mobileScreen(),
-          desktop: destTopScreen(),
-        ),
+      child: GetBuilder<LoginController>(
+        builder: (ctrl) {
+          return Stack(
+            children: [
+              Scaffold(
+                backgroundColor: bgColor,
+                body: Responsive(
+                  mobile: mobileScreen(context),
+                  desktop: destTopScreen(context),
+                ),
+              ),
+              ctrl.isLoading ? LoadingStack(() {}) : Container()
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget destTopScreen() {
+  Widget destTopScreen(BuildContext context) {
     return Stack(
       children: [
         ...topBottomDesign(size: 600),
         Column(
           children: [
-            Row(),
+            const Row(),
             bbLogo(height: 300, width: 300).paddingOnly(top: 20),
             _userName(),
             _password(),
-            _button(),
+            _button(context),
           ],
         )
       ],
@@ -69,20 +78,20 @@ class LoginScreen extends StatelessWidget {
     ];
   }
 
-  Widget mobileScreen() {
+  Widget mobileScreen(BuildContext context) {
     return Stack(
       children: [
         ...topBottomDesign(size: 350),
         Column(
           children: [
-            Row(),
+            const Row(),
             bbLogo(
               width: 200,
               height: 200,
             ).paddingOnly(top: 45),
             _userName(),
             _password(),
-            _button(),
+            _button(context),
           ],
         )
       ],
@@ -98,57 +107,47 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _userName() {
-    return Container(
-      height: 45,
+    return BBTextField(
       width: 350,
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-          ),
-          borderRadius: BorderRadius.circular(5)),
-      child: BBTextField(
-        hint: "USERNAME",
-        textColor: Colors.white,
-        hintColor: Colors.white,
-        prefixIcon: Image.asset(
-          Assets.iconsUser,
-          height: 24,
-          width: 24,
-        ).paddingAll(8),
-      ),
+      height: 45,
+      hint: "USERNAME",
+      error: controller.userError,
+      controller: controller.userNameController,
+      textColor: Colors.white,
+      hintColor: Colors.white,
+      prefixIcon: Image.asset(
+        Assets.iconsUser,
+        height: 24,
+        width: 24,
+      ).paddingOnly(left: 8,right: 8),
     ).paddingOnly(top: 40);
   }
 
   Widget _password() {
-    return Container(
+    return BBTextField(
       width: 350,
       height: 45,
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-          ),
-          borderRadius: BorderRadius.circular(5)),
-      child: BBTextField(
-        hint: "PASSWORD",
-        hintColor: Colors.white,
-        textColor: Colors.white,
-        prefixIcon: Image.asset(
-          Assets.iconsLock,
-          height: 23,
-          width: 23,
-        ).paddingAll(8),
-      ).center,
-    ).paddingOnly(top: 20);
+      hint: "PASSWORD",
+      controller: controller.passwordController,
+      hintColor: Colors.white,
+      textColor: Colors.white,
+      error: controller.passwordError,
+      prefixIcon: Image.asset(
+        Assets.iconsLock,
+        height: 23,
+        width: 23,
+      ).paddingOnly(left: 8,right: 8),
+    ).center.paddingOnly(top: 15);
   }
 
-  Widget _button() {
-    return Container(
+  Widget _button(BuildContext context) {
+    return SizedBox(
       width: 355,
       child: AppButton(
         buttonColor: buttonColor,
         text: "LOGIN",
         onPress: () {
-          Get.toNamed(Routes.home);
+          controller.performLogin(context);
         },
         borderValue: 0,
       ),

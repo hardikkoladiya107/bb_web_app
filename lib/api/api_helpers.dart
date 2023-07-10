@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:bb_web_app/api/request_constant.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
+
 import '../utils/app_constant.dart';
 import '../utils/app_utils.dart';
 import '../utils/routes.dart';
@@ -12,7 +14,6 @@ import 'api_exception.dart';
 import 'response_item.dart';
 
 class BaseApiHelper {
-
   static Future<ResponseItem> getRequest({
     required String requestUrl,
     required Map<String, dynamic> queryParam,
@@ -21,7 +22,7 @@ class BaseApiHelper {
     dio = Dio();
     return await dio
         .get(
-          requestUrl,
+        AppUrls.baseUrl + requestUrl,
           queryParameters: queryParam,
           options: Options(headers: AppUtils.requestHeader(passAuthToken)),
         )
@@ -31,7 +32,6 @@ class BaseApiHelper {
 
   static Future<ResponseItem> postRequest({
     required String requestUrl,
-    required Map<String, dynamic> queryParam,
     required Map<String, dynamic> requestData,
     required bool passAuthToken,
     bool isMultipart = false,
@@ -43,8 +43,7 @@ class BaseApiHelper {
     }
     return await dio
         .post(
-          requestUrl,
-          queryParameters: queryParam,
+          AppUrls.baseUrl + requestUrl,
           data: isMultipart ? formData : json.encode(requestData),
           options: Options(headers: AppUtils.requestHeader(passAuthToken)),
         )

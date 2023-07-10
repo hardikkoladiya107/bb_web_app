@@ -23,8 +23,8 @@ class ResponseItem {
 
   factory ResponseItem.fromJson(Map<String, dynamic> json) => ResponseItem(
         data: json["data"],
-        message: json["msg"],
-        status: json["status"] == 1 || json["status"] == 2,
+        message: json["message"],
+        status: json["status"] == 200 || json["status"] == 201,
         forceLogout: json["force_logout"] == 1,
         requestCancelled: json["request_cancelled"],
         newAuthToken: json["new_token"],
