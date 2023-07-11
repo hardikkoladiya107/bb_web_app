@@ -18,12 +18,14 @@ class MenuScreen extends StatelessWidget {
       backgroundColor: backGroundColor,
       body: GetBuilder<MenuScreenController>(
         builder: (ctrl) {
-          return Column(
-            children: [
-              categoryManageMent(),
-              rowMenu(),
-              menuBody(ctrl),
-            ],
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                categoryManageMent(),
+                rowMenu(),
+                menuBody(ctrl),
+              ],
+            ),
           );
         },
       ),
@@ -31,14 +33,12 @@ class MenuScreen extends StatelessWidget {
   }
 
   Widget menuBody(MenuScreenController ctrl) {
-    return Expanded(
-      child: IndexedStack(
-        index: ctrl.drawerCount,
-        children: const [
-          RowOneMenuScreen(),
-          RowSecondMenuScreen(),
-        ],
-      ),
+    return IndexedStack(
+      index: ctrl.drawerCount,
+      children:   [
+        RowOneMenuScreen(),
+        RowSecondMenuScreen(),
+      ],
     );
   }
 
@@ -98,7 +98,7 @@ class MenuScreen extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: Container()),
-          Expanded(
+          const Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [],

@@ -11,6 +11,7 @@ class AppUrls {
 
 class MethodNames {
   static const login = '/authentication/login';
+  static const menu = '/management/menu';
 
 }
 

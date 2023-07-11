@@ -33,8 +33,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> performLogin(BuildContext context) async {
-    Get.toNamed(Routes.mainScreen);
-   /* if (_isValidate()) {
+    if (_isValidate()) {
       startLoading();
       ResponseItem response = await AuthRepo.userLogin(
         email: userNameController.text.trim(),
@@ -49,7 +48,7 @@ class LoginController extends GetxController {
         response.message.errorSnack(context);
         stopLoading();
       }
-    }*/
+    }
   }
 
 

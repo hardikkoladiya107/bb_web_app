@@ -8,7 +8,7 @@ class AppUtils {
       RequestHeaderKey.contentType: 'application/json',
       RequestHeaderKey.appSecret: 'freeme123',
       RequestHeaderKey.appTrackVersion: 'v1',
-      RequestHeaderKey.appDeviceType: Platform.isIOS ? 'iOS' : 'android',
+      // RequestHeaderKey.appDeviceType: Platform.isIOS ? 'iOS' : 'android',
       if (passAuthToken)
         RequestHeaderKey.authToken: box.read(AppConstant.authToken) ?? '',
       if (passAuthToken)

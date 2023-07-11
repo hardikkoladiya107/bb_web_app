@@ -159,39 +159,39 @@ class CategoryScreen extends StatelessWidget {
     );
   }
 
-  Widget moreIconWidget() {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: const Icon(
-              Icons.more_vert_outlined,
-              size: 20,
-            ).center,
-          )
-        ],
-      ),
-    );
-  }
+    Widget moreIconWidget() {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: const Icon(
+                Icons.more_vert_outlined,
+                size: 20,
+              ).center,
+            )
+          ],
+        ),
+      );
+    }
 
-  Widget categoryItemChild(String s) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: s
-                .text(
-                  fontSize: 14,
-                  weight: FontWeight.w600,
-                )
-                .center,
-          )
-        ],
-      ),
-    );
-  }
+    Widget categoryItemChild(String s) {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: s
+                  .text(
+                    fontSize: 14,
+                    weight: FontWeight.w600,
+                  )
+                  .center,
+            )
+          ],
+        ),
+      );
+    }
 
   Widget filterItem() {
     return Container(

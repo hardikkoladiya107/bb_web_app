@@ -8,3 +8,5 @@ const buttonColor = Color(0xFF3CA455);
 const backGroundColor = Color(0xFFF2EEEE);
 const success = Colors.green;
 const failed = Colors.red;
+const borderGreyColor = Colors.grey;
+const greyTextColor = Colors.grey;

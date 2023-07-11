@@ -65,7 +65,7 @@ class SharedPrefsUtils{
     await preferences.save(key: SharedKeys.AUTH_TOKEN, data: token);
   }
 
-  putAppDeviceInfo() async {
+  /*putAppDeviceInfo() async {
     if (kIsWeb) {
       save(key: SharedKeys.APP_DEVICE_MODEL, data: "Test");
       save(key: SharedKeys.APP_OS_VERSION, data: "Web 1.0");
@@ -102,7 +102,7 @@ class SharedPrefsUtils{
     return Platform.isIOS
         ? await DeviceInfoPlugin().iosInfo
         : await DeviceInfoPlugin().androidInfo;
-  }
+  }*/
 }
 
 class SharedKeys {
