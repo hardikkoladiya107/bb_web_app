@@ -13,16 +13,16 @@ class MenuRepo {
 
     result = await BaseApiHelper.getRequest(
       requestUrl: MethodNames.menu,
-      passAuthToken: false,
+      passAuthToken: true,
       queryParam: {
         "type":"MOBILE"
       },
     );
     status = result.status;
-    data = result.data;
+    data = result.body;
     message = result.message;
     return ResponseItem(
-      data: data,
+      body: data,
       message: message,
       status: status,
     );

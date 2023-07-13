@@ -30,6 +30,6 @@ class RequestHeaderKey {
   static const appDeviceModel = "App-Device-Model";
   static const appOsVersion = "App-Os-Version";
   static const appStoreBuildNumber = "App-Store-Build-Number";
-  static const authToken = "Auth-Token";
+  static const authorization = "Authorization";
   static const accessToken = "Access-Token";
 }

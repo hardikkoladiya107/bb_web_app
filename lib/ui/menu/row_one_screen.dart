@@ -1,29 +1,17 @@
+import 'package:bb_web_app/model/menu_model.dart';
 import 'package:bb_web_app/widgets/extensions/cmn_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/bb_dialog.dart';
+import '../../widgets/bb_image.dart';
 import '../../widgets/dropdown.dart';
-import '../../widgets/fm_dialog.dart';
 import 'menu_controller.dart';
 
 class RowOneMenuScreen extends StatelessWidget {
   RowOneMenuScreen({Key? key}) : super(key: key);
 
   var controller = Get.find<MenuScreenController>();
-
-  List<String> _list = [
-    "Apple",
-    "Ball",
-    "Cat",
-    "Dog",
-    "Elephant",
-    "Hardik",
-    "Parth",
-    "Utsav",
-    "Koladiya",
-    "Dipak",
-    "Raju"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,37 +21,35 @@ class RowOneMenuScreen extends StatelessWidget {
         return Column(
           children: [
             filterAddMenuItem(context),
+            listHeader(),
             ReorderableListView(
               padding: const EdgeInsets.only(left: 15, right: 15),
               buildDefaultDragHandles: true,
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              children: _list
-                  .map(
-                    (item) => rowOneListItem(UniqueKey(), context),
-                  )
-                  .toList(),
+              children: (ctrl.rowOneMenuList ?? []).map(
+                (item) {
+                  return rowOneListItem(UniqueKey(), context, item);
+                },
+              ).toList(),
               onReorder: (int start, int current) {
-                /* // dragging from top to bottom
                 if (start < current) {
                   int end = current - 1;
-                  String startItem = _list[start];
+                  Menus startItem = ctrl.rowOneMenuList[start];
                   int i = 0;
                   int local = start;
                   do {
-                    _list[local] = _list[++local];
+                    ctrl.rowOneMenuList[local] = ctrl.rowOneMenuList[++local];
                     i++;
                   } while (i < end - start);
-                  _list[end] = startItem;
-                }
-                // dragging from bottom to top
-                else if (start > current) {
-                  String startItem = _list[start];
+                  ctrl.rowOneMenuList[end] = startItem;
+                } else if (start > current) {
+                  Menus startItem = ctrl.rowOneMenuList[start];
                   for (int i = start; i > current; i--) {
-                    _list[i] = _list[i - 1];
+                    ctrl.rowOneMenuList[i] = ctrl.rowOneMenuList[i - 1];
                   }
-                  _list[current] = startItem;
-                }*/
+                  ctrl.rowOneMenuList[current] = startItem;
+                }
                 controller.update(["RowOneBuilder"]);
               },
             )
@@ -73,7 +59,7 @@ class RowOneMenuScreen extends StatelessWidget {
     );
   }
 
-  Widget rowOneListItem(Key key, BuildContext context) {
+  Widget rowOneListItem(Key key, BuildContext context, Menus item) {
     return Container(
       key: key,
       child: Container(
@@ -85,9 +71,9 @@ class RowOneMenuScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 categoryItemChild("1"),
-                categoryItemChild("Shoping"),
-                categoryItemChild("Icon"),
-                categoryItemChild("1"),
+                categoryItemChild(item.title ?? ""),
+                categoryItemIcon(item.iconUrl ?? ""),
+                categoryItemChild(item.order?.toString() ?? ""),
                 moreIconWidget(context)
               ],
             ).paddingOnly(
@@ -230,7 +216,54 @@ class RowOneMenuScreen extends StatelessWidget {
     );
   }
 
+  Widget categoryItemIcon(String s) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BBImage.networkImage(
+            path: s,
+            size: 20,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget addRowOneMenuDialog() {
-    return Container(height: 200,width: 200,);
+    return Container(
+      height: 200,
+      width: 200,
+    );
+  }
+
+  Widget listHeader() {
+    return Container(
+      key: key,
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          key: key,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                categoryItemChild("ID"),
+                categoryItemChild("Title"),
+                categoryItemChild("Icon"),
+                categoryItemChild("Icon"),
+                categoryItemChild("Action")
+              ],
+            ).paddingOnly(
+              top: 10,
+              bottom: 10,
+            )
+          ],
+        ),
+      ).paddingOnly(
+        top: 1,
+        bottom: 1,
+      ),
+    ).paddingOnly(left: 15,right: 15);
   }
 }

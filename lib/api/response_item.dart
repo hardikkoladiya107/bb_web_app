@@ -1,6 +1,6 @@
 class ResponseItem {
   ResponseItem({
-    this.data,
+    this.body,
     this.wholeData,
     required this.message,
     required this.status,
@@ -11,7 +11,7 @@ class ResponseItem {
     this.isEmailSent  = false
   });
 
-  dynamic data;
+  dynamic body;
   dynamic wholeData;
   String message;
   bool status;
@@ -21,19 +21,21 @@ class ResponseItem {
   String? verifyCode;
   bool isEmailSent;
 
-  factory ResponseItem.fromJson(Map<String, dynamic> json) => ResponseItem(
-        data: json["data"],
-        message: json["message"],
-        status: json["status"] == 200 || json["status"] == 201,
-        forceLogout: json["force_logout"] == 1,
-        requestCancelled: json["request_cancelled"],
-        newAuthToken: json["new_token"],
-        verifyCode: json["verify_code"],
-        isEmailSent: json["isEmailSent"]== 1,
-      );
+  factory ResponseItem.fromJson(Map<String, dynamic> json) {
+    return ResponseItem(
+      body: json["body"],
+      message: json["message"],
+      status: json["status"] == 200 || json["status"] == 201,
+      forceLogout: json["force_logout"] == 1,
+      requestCancelled: json["request_cancelled"],
+      newAuthToken: json["new_token"],
+      verifyCode: json["verify_code"],
+      isEmailSent: json["isEmailSent"]== 1,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-        "data": data,
+        "body": body,
         "msg": message,
         "status": status,
         "force_logout": forceLogout,

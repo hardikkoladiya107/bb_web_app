@@ -57,7 +57,7 @@ class BaseApiHelper {
     log(json.encode(response.requestOptions.queryParameters),
         name: 'REQUEST_PARAMS');
     log(json.encode(response.requestOptions.headers), name: 'REQUEST_HEADERS');
-    if ((response.requestOptions.contentType ?? 'application/json') ==
+    /*if ((response.requestOptions.contentType ?? 'application/json') ==
         'application/json') {
       log(response.requestOptions.data, name: 'REQUEST_DATA');
     } else {
@@ -66,7 +66,7 @@ class BaseApiHelper {
         logData[element.key] = element.value;
       }
       log(json.encode(logData), name: 'REQUEST_DATA');
-    }
+    }*/
     log(json.encode(response.data), name: 'RESPONSE');
     final ResponseItem responseData = ResponseItem.fromJson(response.data);
     bool status = false;
@@ -77,7 +77,7 @@ class BaseApiHelper {
       message = responseData.message;
       if (responseData.status) {
         status = true;
-        data = responseData.data;
+        data = responseData.body;
         data ??= response.data;
       } else {
         if (responseData.forceLogout!) {
@@ -92,7 +92,7 @@ class BaseApiHelper {
       message = AppConstant.errorText;
     }
     ResponseItem result = ResponseItem(
-      data: data,
+      body: data,
       message: message,
       status: status,
     );
@@ -112,6 +112,6 @@ class BaseApiHelper {
       message = ResponseException('Something wrong in response.').toString() +
           error.toString();
     }
-    return ResponseItem(data: null, message: message, status: status);
+    return ResponseItem(body: null, message: message, status: status);
   }
 }

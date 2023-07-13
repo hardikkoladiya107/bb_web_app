@@ -40,7 +40,7 @@ class LoginController extends GetxController {
         password: passwordController.text.trim(),
       );
       if (response.status) {
-        LoginModel responseData = LoginModel.fromJson(response.data);
+        LoginModel responseData = LoginModel.fromJson(response.body);
         await setupLoginData(responseData);
         stopLoading();
         Get.toNamed(Routes.mainScreen);
@@ -82,10 +82,10 @@ class LoginController extends GetxController {
     return true;
   }
 
-  Future<void> setupLoginData(LoginModel responseData) async {
-    await box.write(AppConstant.authToken, responseData.body?.token);
+  Future<void> setupLoginData(LoginModel loginModel) async {
+    await box.write(AppConstant.authToken, loginModel.token);
     await box.write(AppConstant.isLogin, true);
-    await box.write(AppConstant.userProfile, responseData.toJson());
+    await box.write(AppConstant.userProfile, loginModel.toJson());
   }
 
 }

@@ -33,13 +33,19 @@ class MenuScreenController extends GetxController {
   }
 
   List<MenuModel> menuList = [];
+  List<Menus> rowOneMenuList = [];
+  List<Menus> rowTwoMenuList = [];
 
   Future getAllMenu(BuildContext context) async {
     startLoading();
     ResponseItem response = await MenuRepo.getAllMenuItems();
     if (response.status) {
       menuList.clear();
-      menuList.addAll(menuModelFromJson(response.data));
+      menuList.addAll(menuModelFromJson(response.body));
+      rowOneMenuList.clear();
+      rowTwoMenuList.clear();
+      rowOneMenuList.addAll(menuList[0].menus ?? []);
+      rowTwoMenuList.addAll(menuList[1].menus ?? []);
       stopLoading();
     } else {
       response.message.errorSnack(context);

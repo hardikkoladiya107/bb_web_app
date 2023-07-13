@@ -10,9 +10,7 @@ class AppUtils {
       RequestHeaderKey.appTrackVersion: 'v1',
       // RequestHeaderKey.appDeviceType: Platform.isIOS ? 'iOS' : 'android',
       if (passAuthToken)
-        RequestHeaderKey.authToken: box.read(AppConstant.authToken) ?? '',
-      if (passAuthToken)
-        RequestHeaderKey.accessToken: box.read(AppConstant.accessToken) ?? '',
+        RequestHeaderKey.authorization: "Bearer ${box.read(AppConstant.authToken) ?? ''}",
     };
   }
 }

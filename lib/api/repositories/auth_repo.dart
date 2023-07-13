@@ -24,8 +24,8 @@ class AuthRepo {
       isMultipart: false,
     );
     status = result.status;
-    data = result.data;
+    data = result.body;
     message = result.message;
-    return ResponseItem(data: data, message: message, status: status);
+    return ResponseItem(body: data, message: message, status: status);
   }
 }

@@ -1,10 +1,7 @@
 import 'package:bb_web_app/widgets/extensions/cmn_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
-import '../../utils/app_utils.dart';
 import '../../utils/responsive.dart';
 import '../../utils/routes.dart';
 import '../category/category_screen.dart';

@@ -17,6 +17,9 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backGroundColor,
       body: GetBuilder<MenuScreenController>(
+        initState: (state) {
+          controller.getAllMenu(context);
+        },
         builder: (ctrl) {
           return SingleChildScrollView(
             child: Column(
