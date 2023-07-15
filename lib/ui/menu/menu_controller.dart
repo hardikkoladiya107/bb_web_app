@@ -52,4 +52,19 @@ class MenuScreenController extends GetxController {
       stopLoading();
     }
   }
+
+  Future<void> deleteMenu(Menus menuItem, BuildContext context) async {
+    startLoading();
+    ResponseItem response = await MenuRepo.deleteMenuItem(menuItem.id ?? "");
+    if (response.status) {
+      await getAllMenu(context);
+      stopLoading();
+      response.message.errorSnack(context);
+      update(["RowOneBuilder"]);
+    } else {
+      response.message.errorSnack(context);
+      stopLoading();
+      update(["RowOneBuilder"]);
+    }
+  }
 }

@@ -74,7 +74,7 @@ class RowOneMenuScreen extends StatelessWidget {
                 categoryItemChild(item.title ?? ""),
                 categoryItemIcon(item.iconUrl ?? ""),
                 categoryItemChild(item.order?.toString() ?? ""),
-                moreIconWidget(context)
+                moreIconWidget(context,item)
               ],
             ).paddingOnly(
               top: 10,
@@ -89,7 +89,7 @@ class RowOneMenuScreen extends StatelessWidget {
     );
   }
 
-  Widget moreIconWidget(BuildContext context) {
+  Widget moreIconWidget(BuildContext context, Menus menuItem) {
     return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -102,6 +102,11 @@ class RowOneMenuScreen extends StatelessWidget {
               ).center,
               onDropDownTap: (item) {
                 //controller.onPerHourDropDownTap(item);
+                if (item.text == "Delete") {
+                  controller.deleteMenu(menuItem,context);
+                } else {
+
+                }
               },
               width: 100,
               items: controller.allPerHour,
@@ -111,7 +116,6 @@ class RowOneMenuScreen extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 
   Widget categoryItemChild(String s) {
@@ -231,7 +235,7 @@ class RowOneMenuScreen extends StatelessWidget {
   }
 
   Widget addRowOneMenuDialog() {
-    return Container(
+    return const SizedBox(
       height: 200,
       width: 200,
     );
@@ -264,6 +268,6 @@ class RowOneMenuScreen extends StatelessWidget {
         top: 1,
         bottom: 1,
       ),
-    ).paddingOnly(left: 15,right: 15);
+    ).paddingOnly(left: 15, right: 15);
   }
 }

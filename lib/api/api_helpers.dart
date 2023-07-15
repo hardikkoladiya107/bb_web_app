@@ -51,6 +51,23 @@ class BaseApiHelper {
         .onError((error, stackTrace) => onError(error));
   }
 
+  static Future<ResponseItem> deleteRequest({
+    required String requestUrl,
+    required Map<String, dynamic> queryParam,
+    required bool passAuthToken,
+  }) async {
+    dio = Dio();
+    return await dio
+        .delete(
+      AppUrls.baseUrl + requestUrl,
+      queryParameters: queryParam,
+      options: Options(headers: AppUtils.requestHeader(passAuthToken)),
+    )
+        .then((value) => onValue(value))
+        .onError((error, stackTrace) => onError(error));
+  }
+
+
   static Future onValue(Response response) async {
     log(response.requestOptions.method, name: 'REQUEST_METHOD');
     log(response.requestOptions.path, name: 'REQUEST_URL');
